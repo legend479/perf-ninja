@@ -27,8 +27,8 @@ void multiply(Matrix &result, const Matrix &a, const Matrix &b) {
   zero(result);
 
   for (int i = 0; i < N; i++) {
-    for (int j = 0; j < N; j++) {
-      for (int k = 0; k < N; k++) {
+    for (int k = 0; k < N; k++) {
+      for (int j = 0; j < N; j++) {
         result[i][j] += a[i][k] * b[k][j];
       }
     }
@@ -51,14 +51,14 @@ Matrix power(const Matrix &input, const uint32_t k) {
 
   // Use binary representation of k to be O(log(k))
   for (auto i = k; i > 0; i /= 2) {
-    if (i % 2 != 0) {
+    if (i & 1) {
       // Multiply the product by element
       multiply(*productNext, *productCurrent, *elementCurrent);
       std::swap(productNext, productCurrent);
 
-      // Exit early to skip next squaring
-      if (i == 1)
-        break;
+      // // Exit early to skip next squaring
+      // if (i == 1)
+      //   break;
     }
 
     // Square an element
